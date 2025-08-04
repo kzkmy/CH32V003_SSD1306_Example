@@ -128,7 +128,6 @@ typedef enum {
  * ============================================================================ */
 
 extern uint8_t ssd1306_buffer[SSD1306_W * SSD1306_H / 8];  // Display buffer
-extern uint8_t display_cmdbuffer[];                         // Command buffer
 
 /* ============================================================================
  * INITIALIZATION AND CONTROL FUNCTIONS

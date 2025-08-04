@@ -99,26 +99,8 @@ const uint8_t ssd1306_init_array[] =
 };
 #endif
 
-static const uint8_t cmd_array[] = {
-			//0x3C << 1, // 0x3C = I2C address
-			0x80, // 0 = next byte is command
-			SSD1306_COLUMNADDR,
-			0x80, // 0 = next byte is command
-			SSD1306_OFFSET,   // Column start address (0 = reset)
-			0x80, // 0 = next byte is command
-			SSD1306_OFFSET+SSD1306_W-1, // Column end address (127 = reset)
-			0x80, // 0 = next byte is command
-			SSD1306_PAGEADDR,
-			0x80, // 0 = next byte is command
-			0, // Page start address (0 = reset)
-			0x80, // 0 = next byte is command
-			7, // Page end address
-			0x40, // Hereafter, all bytes are data
-		};
-
 // the display buffer
 uint8_t ssd1306_buffer[SSD1306_W * SSD1306_H / 8];
-uint8_t display_cmdbuffer[sizeof(cmd_array)+ (SSD1306_W*SSD1306_H/8)]; // + display buffer
 
 /*
  * reset is not used for SSD1306 I2C interface
@@ -629,7 +611,6 @@ uint8_t ssd1306_init(i2c_device_t *dev)
 		if(ssd1306_cmd(dev, *cmd_list++))
 			return 1;
 	}
-	memcpy(display_cmdbuffer, cmd_array, sizeof(cmd_array)); 
 	
 	ssd1306_refresh(dev);	
 #endif
